@@ -1,0 +1,2 @@
+How to configure TortoiseGit 4 Windows
+http://habrahabr.ru/post/125799/
