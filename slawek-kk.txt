@@ -7,5 +7,4 @@ Manual for TortoiseGit
 http://dev.call2ru.com/vs/%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D1%81%20Git.pdf
 
 UPD: 24.10.2012
-
-UPD: 2wbe
+1
