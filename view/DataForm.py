@@ -50,7 +50,7 @@ class DataForm(Tk.Toplevel):
         self.pageLabel.pack(side='left')
         self.nextButton = Tk.Button(pageNaviFrame,text='Next', width=10)
         self.nextButton.pack(side='left')        
-    def initTree(self,headers,c_records): 
+    def __initTree(self,headers,c_records): 
         searchFrame = Tk.Frame(self)
         searchFrame.pack(side='top',fill='both', expand=True)         
         self.tree=ttk.Treeview(searchFrame,columns=range(len(headers)),selectmode='browse',height=c_records)  #you can select only one item        
@@ -80,18 +80,7 @@ class DataForm(Tk.Toplevel):
         item = self.tree.item(self.tree.get_children('')[id])         
         return item['values']
     def clearRecords(self):        
-        self.tree.delete(self.tree.get_children(''))
-    def getSearchRecord(self):
-        sr = {}
-        for i in range(len(self.searchInputs)): 
-            value = self.searchInputs[i].get()             
-            sr[i] = value
-        return sr 
-    def clearSearchRecord(self):
-        for i in range(len(self.searchInputs)): 
-            v = Tk.StringVar()
-            self.searchInputs[i].config(textvariable=v)
-            v.set('')   
+        self.tree.delete(self.tree.get_children(''))    
     def getSelectedRecord(self):
         """returns None is there is no selected item"""        
         sel_item = self.tree.item(self.tree.selection())         
@@ -99,13 +88,7 @@ class DataForm(Tk.Toplevel):
             return None
         rec = {'id': sel_item['text'], 'values':sel_item['values']}               
         return rec
-    #events
-    def setFindAction(self,action):
-        pass
-        #self.findButton.config(command=action)
-    def setResetFindAction(self,action):
-        pass
-        #self.allButton.config(command=action)
+    #events    
     def setPrevPageAction(self,action):
         self.prevButton.config(command=action)
     def setNextPageAction(self,action):
