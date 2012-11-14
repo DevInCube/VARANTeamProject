@@ -6,6 +6,7 @@ import EditItemForm as eif
 
 def find():
     print dataForm.clearSearchRecord()
+    """
 dataForm = df.DataForm(0,('id','tree'))
 dataForm.setFindAction(find)
 dataForm.insertRecord(0, "goog gkkg")
@@ -16,6 +17,7 @@ dataForm.disableMenuItem(1, 0)
 dataForm.setAccountStatus("readonly")
 dataForm.bindMenuItem(1, 1,find)
 dataForm.show()
+"""
 """
 def close():
     print ef.getRecord()

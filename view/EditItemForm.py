@@ -5,22 +5,26 @@ import ttk
 
 
 class EditItemForm(Tk.Toplevel):
-    def __init__(self,headers,item):        
+    def __init__(self,headers,item=None):        
         self.root = Tk.Tk()
         self.root.withdraw()
         Tk.Toplevel.__init__(self, self.root) 
         self.protocol('WM_DELETE_WINDOW', self.hide)
-        labelsFrame = Tk.Frame(self)
-        labelsFrame.pack(side='top',fill='both', expand=True)
-        for i in range(len(headers)) :            
-            l = Tk.Label(labelsFrame, text=headers[i])
-            l.pack(side='left',fill='both', expand=True)
-        editFrame = Tk.Frame(self)
-        editFrame.pack(side='top',fill='both', expand=True)
+        searchFrame = Tk.Frame(self)
+        searchFrame.pack(side='top',fill='both', expand=True)
+        searchFrameLeft = Tk.Frame(searchFrame)
+        searchFrameLeft.pack(side='left',fill='x', expand=True)
+        searchFrameRight = Tk.Frame(searchFrame)
+        searchFrameRight.pack(side='left',fill='both', expand=True)
         self.editInputs = {}        
-        for i in range(len(item)) :            
-            self.editInputs[i] = Tk.Entry(editFrame)
-            self.editInputs[i].pack(side='left',fill='both', expand=True)
+        for i in range(len(headers)) :    
+            label = Tk.Label(searchFrameLeft,text=headers[i])
+            label.pack(side='top',fill='x', expand=True)          
+            inputText = ''
+            if item != None:
+                inputText = item[i]
+            self.editInputs[i] = Tk.Entry(searchFrameRight,text=inputText)
+            self.editInputs[i].pack(side='top',fill='both', expand=True)
         bottomFrame = Tk.Frame(self)
         bottomFrame.pack(side='bottom',fill='both', expand=True)
         self.saveButton = Tk.Button(bottomFrame,text='Save', width=10)
