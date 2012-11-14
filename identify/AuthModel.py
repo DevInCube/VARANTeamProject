@@ -12,8 +12,7 @@ class AuthModel(object):
  
     def login(self, login, password):
         if self.validation(login, password):
-            if self.authentication(login, password):
-                tmb.showinfo("Auth", "Now we call DataController with is_admin")
+            self.authentication(login, password)            
 
     def authentication(self, login, password):
         is_admin = ""
@@ -28,6 +27,7 @@ class AuthModel(object):
                     is_admin = user.is_admin
         if password_found == True:
             tmb.showinfo("Auth is OK", "Now we call DataController with is_admin = " + str(is_admin))
+            # start point to MVC2
         else:
             if user_found == True:
                 tmb.showerror("Auth", "Wrong password")

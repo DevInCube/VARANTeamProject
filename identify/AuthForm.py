@@ -22,9 +22,7 @@ class AuthForm(Tk.Toplevel):
         self.passwordEntry = Tk.Entry(self, textvariable=password, width=10) 
         self.passwordEntry.pack(side='top')         
         self.loginButton = Tk.Button(self, text='Login', width=8)
-        # self.loginButton.configure(command = self.sendForm)
         self.loginButton.pack(side='bottom')
-        # self.changeButton = Tk.Button(self, text='Change', width=8)
         
     def run(self):
         self.root.mainloop()
