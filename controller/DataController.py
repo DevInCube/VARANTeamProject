@@ -1,66 +1,119 @@
-#from view import DataForm as df
-#from view import EditItemForm
+from view import DataForm as df
+from view import EditItemForm as eif
+#import blabla as idf
 import tkMessageBox as tmb
 
+
 class DataController:
-    headers = ('id','name','test1','test2')
+    headers = ("CAD CDW ID", "CAD Event Number", "General Offense Number",
+               "Event Clearance Code", "Event Clearance Description",
+               "Event Clearance SubGroup", "Event Clearance Group",
+               "Event Clearance ", "Date", "Hundred Block Location",
+               "District/Sector", "Zone/Beat", "Census Tract", "Longitude",
+               "Latitude", "Incident Location")
+
     def __init__(self):
         self.view = None
+        self.id = None
         self.page = 0
-        self.pageSize = 100
-        self.totalPages = 10
+        self.record = None
+        self.recordStartWith = 0
+        self.pageSize = 25
+        self.totalPages = 5
         self.editView = None
+        self.searchResult = ()
+
     def openConnection(self, readonly):
-        #if self.view is None:
-            #self.view = df.DataForm(readonly, self.headers)
+        if self.view is None:
+            self.view = df.DataForm(readonly, self.headers)
         status = 'admin'
         if readonly:
             status = 'readonly'
-        self.view.setAccountSettings(status)
+            self.view.disableMenu(1)
+        self.view.setAccountStatus(status)
         self.view.setNextPageAction(self.nextPage)
         self.view.setPrevPageAction(self.prevPage)
-        self.view.setFindAction(self.search)
-        self.view.setResetFindAction(self.showAllRecords)
+        #self.view.setFindAction(self.search)
+        #self.view.setResetFindAction(self.showAllRecords)
         self.view.bindMenuItem(0, 0, self.logOut)
         self.view.bindMenuItem(0, 1, self.closeConnection)
         self.view.bindMenuItem(1, 0, self.newRecord)
         self.view.bindMenuItem(1, 1, self.editRecord)
         self.view.bindMenuItem(1, 2, self.deleteRecord)
-        self.view.bindMenuItem(2, 0, self.showAbout)
+        self.view.bindMenuItem(3, 0, self.showAbout)
         self.updateData()
         self.view.show()
+
     def closeConnection(self):
-        pass
+        if self.view is not None:
+            self.view.hide()
+
     def logOut(self):
         self.closeConnection()
+        #if self.id is None:
+            #self.id = idf.IdentifyForm()
+        #self.id.show()
+
     def newRecord(self):
-        return True
-    def selectRecord(self):
-        pass
+        self.editView = eif.EditItemForm(self.headers, self.record)
+        self.editView.addButton("Save", self.saveChanges)
+        self.editView.addButton("Cancel", self.cancelChanges)
+        self.editView.show()
+
     def editRecord(self):
-        pass
+        record = self.view.getSelectedRecord()
+        if record is None:
+            return
+        self.view.enableMenuItem(1, 2)
+        self.editView = eif.EditItemForm(self.headers, record)
+        self.editView.show()
+        self.editView.addButton("Save", self.saveChanges)
+        self.editView.addButton("Cancel", self.cancelChanges)
+
     def saveChanges(self):
-        pass
+        #dataset writing function here
+        print "changes saved"
+        #self.view.insertRecord(0, self.record)
+        self.editView.hide()
+        if self.page < self.totalPages:
+            return
+        #self.updateData()
+
     def cancelChanges(self):
-        pass
+        self.editView.hide()
+
     def deleteRecord(self):
-        pass
+        record = self.view.getSelectedRecord()
+        if record is None:
+            return
+        self.view.enableMenuItem(1, 3)
+        self.editView.addButton("Delete", self.saveChanges)
+        self.editView.addButton("Cancel", self.cancelChanges)
+        #delete record here
+
+    def updateData(self):
+        status = str(self.page + 1) + "/" + str(self.totalPages)
+        self.view.setPageStatus(status)
+
     def prevPage(self):
-        pass
+        if self.page > 0:
+            self.page -= 1
+            self.recordStartWith -= self.pageSize
+        self.updateData()
+
     def nextPage(self):
-        pass
+        if self.page < self.totalPages - 1:
+            self.page += 1
+            self.recordStartWith += self.pageSize
+        self.updateData()
+
     def search(self):
         pass
+
     def showAllRecords(self):
-        pass
+        self.view.clearRecords()
+
     def showAbout(self):
-        text = '''VARAN Team Squad: 
-- Azhipa Natalia
-- Hadyniak Ruslan
-- Zhuk Andriy
-- Kakovsky Viacheslav'''
+        text = "VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zh\
+uk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012"
         tmb.showinfo('About', text)
-
-    
-
-
