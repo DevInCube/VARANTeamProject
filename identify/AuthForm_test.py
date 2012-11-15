@@ -18,19 +18,6 @@ class TestEmpty(unittest.TestCase):
     def test_Validate_Login(self):
         self.assertEqual(self.view.validate_login(), False, "Validation failed. Login is empty")
 
-class TestNonAuthentified(unittest.TestCase):
-
-    def setUp(self):
-        self.view = AuthForm()
-        self.view.set_login("3")    
-        self.view.set_password("4")
-
-    def test_Validate_Password(self):
-        self.assertEqual(self.view.validate_password(), True, "Password is not empty")
-
-    def test_Validate_Login(self):
-        self.assertEqual(self.view.validate_login(), True, "Login is not empty")
-
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testValidate']
     unittest.main()
