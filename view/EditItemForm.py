@@ -33,8 +33,8 @@ class EditItemForm(tkf.TkForm):
     def disableInput(self,ind):
         self.editInputs[ind].config(state='disabled')
     def clearInputs(self):
-         for i in range(len(self.editInputs)): 
-             self.editInputs[i].config(textvariable=StringVar())
+        for i in range(len(self.editInputs)): 
+            self.editInputs[i].config(textvariable=StringVar())
     def getRecord(self):
         sr = {}
         for i in range(len(self.editInputs)): 
