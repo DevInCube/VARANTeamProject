@@ -49,10 +49,14 @@ class AuthForm(Tk.Toplevel):
         self.loginEntry.config(textvariable=r)
 
     def showMessage(self, message, state):
+        result = None
         if state == "Error":
             self.showErrorMessage(message)
+            result = True
         if state == "Success":
             self.showInfoMessage(message)
+            result = True
+        return result
 
     def showErrorMessage(self, message):
         tmb.showerror("Error", message)

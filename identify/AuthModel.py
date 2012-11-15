@@ -30,8 +30,6 @@ class AuthModel(object):
             if user_found == True:
                 self.message.set("Wrong Password")
                 self.state = "Error"
-                # self.sendMessage("Wrong Password")
-                # tmb.showerror("Auth", "Model.Wrong password")
             else:
                 self.message.set("User not found")
         return result
@@ -41,15 +39,12 @@ class AuthModel(object):
         lv = self.validate(login)
         if not (pv or lv == True):
             self.message.set("Login and password are empty")
-            # tmb.showerror("Validation", "Login and password are empty")
         else:
             if pv == False:
                 self.message.set("Password is empty")
-                # tmb.showerror("Validation", "Password is empty")
             else:
                 if lv == False:
                     self.message.set("Login is empty")
-                    # tmb.showerror("Validation", "Login is empty")
         return pv and lv
 
     def validate(self, elem):
@@ -57,4 +52,3 @@ class AuthModel(object):
             return True
         else:
             return False
-
