@@ -2,8 +2,7 @@
 
 import TkForm as tkf
 import Tkinter as Tk
-import ttk 
-
+from Tkinter import StringVar
 
 class EditItemForm(tkf.TkForm):
     def __init__(self,headers,item=None):        
@@ -18,10 +17,10 @@ class EditItemForm(tkf.TkForm):
         for i in range(len(headers)) :    
             label = Tk.Label(searchFrameLeft,text=headers[i])
             label.pack(side='top',fill='x', expand=True)          
-            inputText = ''
+            inputText = StringVar()
             if item != None:
-                inputText = item[i]
-            self.editInputs[i] = Tk.Entry(searchFrameRight,text=inputText)
+                inputText.set(item[i])
+            self.editInputs[i] = Tk.Entry(searchFrameRight,textvariable=inputText)
             self.editInputs[i].pack(side='top',fill='both', expand=True)
         self.bottomFrame = Tk.Frame(self)
         self.bottomFrame.pack(side='bottom',fill='both', expand=True)        
@@ -29,6 +28,8 @@ class EditItemForm(tkf.TkForm):
         btn = Tk.Button(self.bottomFrame,text=name, width=10)
         btn.config(command=action)
         btn.pack(side='left')        
+    def enableInput(self,ind):
+        self.editInputs[ind].config(state='normal')
     def disableInput(self,ind):
         self.editInputs[ind].config(state='disabled')
     def getRecord(self):
@@ -36,4 +37,14 @@ class EditItemForm(tkf.TkForm):
         for i in range(len(self.editInputs)): 
             value = self.editInputs[i].get()             
             sr[i] = value
-        return sr     
+        return sr    
+     
+def main():    
+    headers = ('test1','test2','test3')
+    item = ('i1','i2','i3')
+    eif = EditItemForm(headers,item)
+    eif.title('EditItemForm demo')
+    eif.addButton('TestBtn1', None)
+    eif.show()
+if __name__ == "__main__":
+    main()

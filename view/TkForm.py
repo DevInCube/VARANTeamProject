@@ -4,14 +4,11 @@ Created on Nov 15, 2012
 @author: DevInCube
 '''
 import Tkinter as Tk
-import ttk 
 
 class TkForm(Tk.Toplevel):
     '''
-    classdocs
+    Parent form based on Tk.TopLevel
     '''
-
-
     def __init__(self):
         '''
         Constructor
@@ -20,7 +17,9 @@ class TkForm(Tk.Toplevel):
         self.root.withdraw()
         Tk.Toplevel.__init__(self, self.root) 
         self.protocol('WM_DELETE_WINDOW', self.hide)       
-    def show(self):        
+    def show(self):    
+        '''Opens this window'''    
         self.root.mainloop()
     def hide(self):
-        self.master.destroy()
+        '''Closes this window'''
+        self.master.destroy()    
