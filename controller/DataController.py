@@ -108,7 +108,7 @@ class DataController:
         self.updateData()
 
     def search(self):
-        pass
+        self.searchResult = (1, 2)
 
     def showAllRecords(self):
         self.view.clearRecords()
