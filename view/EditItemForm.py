@@ -32,6 +32,9 @@ class EditItemForm(tkf.TkForm):
         self.editInputs[ind].config(state='normal')
     def disableInput(self,ind):
         self.editInputs[ind].config(state='disabled')
+    def clearInputs(self):
+         for i in range(len(self.editInputs)): 
+             self.editInputs[i].config(textvariable=StringVar())
     def getRecord(self):
         sr = {}
         for i in range(len(self.editInputs)): 
@@ -43,6 +46,8 @@ def main():
     headers = ('test1','test2','test3')
     item = ('i1','i2','i3')
     eif = EditItemForm(headers,item)
+    eif.disableInput(0)
+    eif.clearInputs()
     eif.title('EditItemForm demo')
     eif.addButton('TestBtn1', None)
     eif.show()
