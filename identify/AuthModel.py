@@ -1,11 +1,11 @@
-import tkMessageBox as tmb
-
 from User import User
+from Observable import Observable
 
 
 class AuthModel(object):
 
     def __init__(self):
+        self.message = Observable(None)
         self.users = []
         self.users.append(User('admin', '1234', True))
         self.users.append(User('reader', 'qwerty', False))
@@ -28,23 +28,28 @@ class AuthModel(object):
                     result = user
         if password_found == False:
             if user_found == True:
+                self.message.set("Wrong Password")
+                self.state = "Error"
                 # self.sendMessage("Wrong Password")
-                tmb.showerror("Auth", "Model.Wrong password")
+                # tmb.showerror("Auth", "Model.Wrong password")
             else:
-                tmb.showerror("Auth", "User not found")
+                self.message.set("User not found")
         return result
 
     def validation(self, login, password):
         pv = self.validate(password)
         lv = self.validate(login)
         if not (pv or lv == True):
-            tmb.showerror("Validation", "Login and password are empty")
+            self.message.set("Login and password are empty")
+            # tmb.showerror("Validation", "Login and password are empty")
         else:
             if pv == False:
-                tmb.showerror("Validation", "Password is empty")
+                self.message.set("Password is empty")
+                # tmb.showerror("Validation", "Password is empty")
             else:
                 if lv == False:
-                    tmb.showerror("Validation", "Login is empty")
+                    self.message.set("Login is empty")
+                    # tmb.showerror("Validation", "Login is empty")
         return pv and lv
 
     def validate(self, elem):
@@ -53,5 +58,3 @@ class AuthModel(object):
         else:
             return False
 
-    def sendMessage(self, message):
-        pass

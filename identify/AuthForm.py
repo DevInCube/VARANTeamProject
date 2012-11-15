@@ -48,5 +48,14 @@ class AuthForm(Tk.Toplevel):
         r.set(value)
         self.loginEntry.config(textvariable=r)
 
-    def msgWrongPassword(self):
-        tmb.showerror("Auth", "View.Wrong password")
+    def showMessage(self, message, state):
+        if state == "Error":
+            self.showErrorMessage(message)
+        if state == "Success":
+            self.showInfoMessage(message)
+
+    def showErrorMessage(self, message):
+        tmb.showerror("Error", message)
+
+    def showInfoMessage(self, message):
+        tmb.showinfo("Info", message)
