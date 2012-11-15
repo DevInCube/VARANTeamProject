@@ -4,7 +4,6 @@ from AuthModel import AuthModel
 from AuthForm import AuthForm
 from User import User
 
-
 class AuthController(object):
 
     def __init__(self):
