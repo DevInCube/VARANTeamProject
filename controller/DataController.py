@@ -81,7 +81,7 @@ class DataController:
             self.page += 1
         self.updateData()
     def search(self):
-        pass
+        self.searchResult = self.view.getSelectedRecord()
     def showAllRecords(self):
         self.view.clearRecords()
     def showAbout(self):
