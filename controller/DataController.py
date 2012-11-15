@@ -3,22 +3,33 @@ from view import EditItemForm as eif
 #import blabla as idf
 import tkMessageBox as tmb
 
+
 class DataController:
-    headers = ('id','name','test1','test2')
+    headers = ("CAD CDW ID", "CAD Event Number", "General Offense Number",
+               "Event Clearance Code", "Event Clearance Description",
+               "Event Clearance SubGroup", "Event Clearance Group",
+               "Event Clearance ", "Date", "Hundred Block Location",
+               "District/Sector", "Zone/Beat", "Census Tract", "Longitude",
+               "Latitude", "Incident Location")
+
     def __init__(self):
         self.view = None
         self.id = None
         self.page = 0
-        self.__pageSize = 25
+        self.record = None
+        self.recordStartWith = 0
+        self.pageSize = 25
         self.totalPages = 5
         self.editView = None
         self.searchResult = ()
+
     def openConnection(self, readonly):
         if self.view is None:
             self.view = df.DataForm(readonly, self.headers)
         status = 'admin'
         if readonly:
             status = 'readonly'
+            self.view.disableMenu(1)
         self.view.setAccountStatus(status)
         self.view.setNextPageAction(self.nextPage)
         self.view.setPrevPageAction(self.prevPage)
@@ -32,67 +43,77 @@ class DataController:
         self.view.bindMenuItem(3, 0, self.showAbout)
         self.updateData()
         self.view.show()
+
     def closeConnection(self):
         if self.view is not None:
             self.view.hide()
+
     def logOut(self):
         self.closeConnection()
         #if self.id is None:
             #self.id = idf.IdentifyForm()
         #self.id.show()
+
     def newRecord(self):
-        record = self.view.getSelectedRecord()
-        self.editView = eif.EditItemForm(self.headers, record)
+        self.editView = eif.EditItemForm(self.headers, self.record)
+        self.editView.addButton("Save", self.saveChanges)
+        self.editView.addButton("Cancel", self.cancelChanges)
         self.editView.show()
-        self.editView.setSaveAction(self.saveChanges)
-        self.editView.setCancelAction(self.cancelChanges)
-    def selectRecord(self):
-        pass
+
     def editRecord(self):
         record = self.view.getSelectedRecord()
         if record is None:
-            tmb.showinfo("Edit", "No item selected")
             return
+        self.view.enableMenuItem(1, 2)
         self.editView = eif.EditItemForm(self.headers, record)
         self.editView.show()
-        self.editView.setSaveAction(self.saveChanges)
-        self.editView.setCancelAction(self.cancelChanges)
+        self.editView.addButton("Save", self.saveChanges)
+        self.editView.addButton("Cancel", self.cancelChanges)
+
     def saveChanges(self):
         #dataset writing function here
+        print "changes saved"
+        #self.view.insertRecord(0, self.record)
         self.editView.hide()
-        #if self.page < self.totalPages:
-            #return
+        if self.page < self.totalPages:
+            return
         #self.updateData()
+
     def cancelChanges(self):
         self.editView.hide()
+
     def deleteRecord(self):
         record = self.view.getSelectedRecord()
         if record is None:
-            tmb.showinfo("Delete", "No item selected")
+            return
+        self.view.enableMenuItem(1, 3)
+        self.editView.addButton("Delete", self.saveChanges)
+        self.editView.addButton("Cancel", self.cancelChanges)
+        #delete record here
+
     def updateData(self):
         status = str(self.page + 1) + "/" + str(self.totalPages)
         self.view.setPageStatus(status)
+
     def prevPage(self):
         if self.page > 0:
             self.page -= 1
+            self.recordStartWith -= self.pageSize
         self.updateData()
+
     def nextPage(self):
-        if self.page < self.totalPages -1:
+        if self.page < self.totalPages - 1:
             self.page += 1
+            self.recordStartWith += self.pageSize
         self.updateData()
+
     def search(self):
-        self.searchResult = self.view.getSelectedRecord()
+        pass
+
     def showAllRecords(self):
         self.view.clearRecords()
+
     def showAbout(self):
-        text = '''VARAN Team Squad: 
-- Azhipa Natalia
-- Hadyniak Ruslan
-- Zhuk Andriy
-- Kakovskyi Viacheslav
-VARAN(c)   2012'''
+        text = "VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zh\
+uk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012"
         tmb.showinfo('About', text)
-
-    
-
-
