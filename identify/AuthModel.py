@@ -3,24 +3,25 @@ import tkMessageBox as tmb
 from AuthForm import AuthForm
 from User import User
 
+
 class AuthModel(object):
 
     def __init__(self):
         self.users = []
         self.users.append(User('admin', '1234', True))
         self.users.append(User('reader', 'qwerty', False))
- 
+
     def login(self, login, password):
         if self.validation(login, password):
             return self.authentication(login, password)
         else:
-            return None          
+            return None
 
     def authentication(self, login, password):
         user_found = False
         password_found = False
         result = None
-        for user in self.users :
+        for user in self.users:
             if user.login == login:
                 user_found = True
                 if user.password == password:
@@ -31,8 +32,8 @@ class AuthModel(object):
                 tmb.showerror("Auth", "Wrong password")
             else:
                 tmb.showerror("Auth", "User not found")
-        return result         
-   
+        return result
+
     def validation(self, login, password):
         pv = self.validate(password)
         lv = self.validate(login)
@@ -43,9 +44,9 @@ class AuthModel(object):
                 tmb.showerror("Validation", "Password is empty")
             else:
                 if lv == False:
-                    tmb.showerror("Validation", "Login is empty")                
+                    tmb.showerror("Validation", "Login is empty")
         return pv and lv
-        
+
     def validate(self, elem):
         if not (elem == ""):
             return True
