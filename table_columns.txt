@@ -1,0 +1,1 @@
+headers = ("CAD CDW ID","CAD Event Number","General Offense Number","Event Clearance Code","Event Clearance Description","Event Clearance SubGroup","Event Clearance Group","Event Clearance ","Date","Hundred Block Location","District/Sector","Zone/Beat","Census Tract","Longitude","Latitude","Incident Location")
