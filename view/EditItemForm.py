@@ -1,15 +1,13 @@
 # coding: utf-8 
 
+import TkForm as tkf
 import Tkinter as Tk
 import ttk 
 
 
-class EditItemForm(Tk.Toplevel):
+class EditItemForm(tkf.TkForm):
     def __init__(self,headers,item=None):        
-        self.root = Tk.Tk()
-        self.root.withdraw()
-        Tk.Toplevel.__init__(self, self.root) 
-        self.protocol('WM_DELETE_WINDOW', self.hide)
+        tkf.TkForm.__init__(self)
         searchFrame = Tk.Frame(self)
         searchFrame.pack(side='top',fill='both', expand=True)
         searchFrameLeft = Tk.Frame(searchFrame)
@@ -25,12 +23,12 @@ class EditItemForm(Tk.Toplevel):
                 inputText = item[i]
             self.editInputs[i] = Tk.Entry(searchFrameRight,text=inputText)
             self.editInputs[i].pack(side='top',fill='both', expand=True)
-        bottomFrame = Tk.Frame(self)
-        bottomFrame.pack(side='bottom',fill='both', expand=True)
-        self.saveButton = Tk.Button(bottomFrame,text='Save', width=10)
-        self.saveButton.pack(side='left')        
-        self.cancelButton = Tk.Button(bottomFrame,text='Cancel', width=10)
-        self.cancelButton.pack(side='left')
+        self.bottomFrame = Tk.Frame(self)
+        self.bottomFrame.pack(side='bottom',fill='both', expand=True)        
+    def addButton(self,name,action):
+        btn = Tk.Button(self.bottomFrame,text=name, width=10)
+        btn.config(command=action)
+        btn.pack(side='left')        
     def disableInput(self,ind):
         self.editInputs[ind].config(state='disabled')
     def getRecord(self):
@@ -38,12 +36,4 @@ class EditItemForm(Tk.Toplevel):
         for i in range(len(self.editInputs)): 
             value = self.editInputs[i].get()             
             sr[i] = value
-        return sr 
-    def setSaveAction(self,action):
-        self.saveButton.config(command=action)
-    def setCancelAction(self,action):
-        self.cancelButton.config(command=action)
-    def show(self):
-        self.root.mainloop()
-    def hide(self):            
-        self.master.destroy()
+        return sr     

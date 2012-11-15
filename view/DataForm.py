@@ -1,15 +1,13 @@
 # coding: utf-8 
 
+import TkForm as tkf
 import Tkinter as Tk
 import ttk 
 
-class DataForm(Tk.Toplevel):
+class DataForm(tkf.TkForm):
     def __init__(self,readonly,headers,c_records=25):
-        self.root = Tk.Tk()
-        self.root.withdraw()
-        Tk.Toplevel.__init__(self, self.root) 
-        self.geometry("%dx%d%+d%+d" % (800, 600, 300, 50))
-        self.protocol('WM_DELETE_WINDOW', self.hide)                
+        tkf.TkForm.__init__(self)
+        self.geometry("%dx%d%+d%+d" % (800, 600, 300, 50))                
         self.tree = None                
         self.readonly = readonly            
         #gui
@@ -50,10 +48,11 @@ class DataForm(Tk.Toplevel):
         self.pageLabel.pack(side='left')
         self.nextButton = Tk.Button(pageNaviFrame,text='Next', width=10)
         self.nextButton.pack(side='left')        
-    def __initTree(self,headers,c_records): 
+    def initTree(self,headers,c_records): 
         searchFrame = Tk.Frame(self)
         searchFrame.pack(side='top',fill='both', expand=True)         
-        self.tree=ttk.Treeview(searchFrame,columns=range(len(headers)),selectmode='browse',height=c_records)  #you can select only one item        
+        self.tree=ttk.Treeview(searchFrame,columns=range(len(headers)),selectmode='browse',height=c_records)  #you can select only one item
+        self.tree['show'] = 'headings'        
         for i in range(len(headers)) :
             self.tree.column(i)       
         for i in range(len(headers)) :            
@@ -71,13 +70,13 @@ class DataForm(Tk.Toplevel):
         self.submenu[sm].entryconfig(item,state='disabled')
     def disableMenu(self,sm):
         self.mm.entryconfig(sm+1,state='disabled')
-        
+    
     def bindMenuItem(self,sm,item,action):      
         self.submenu[sm].entryconfig(item+1,command=action)   
-    def insertRecord(self,id,vals):
-        self.tree.insert('', 'end', text=id, values=(vals)) 
-    def getRecord(self,id):        
-        item = self.tree.item(self.tree.get_children('')[id])         
+    def insertRecord(self,pos,vals):
+        self.tree.insert('', 'end', text=pos, values=(vals)) 
+    def getRecord(self,pos):        
+        item = self.tree.item(self.tree.get_children('')[pos])         
         return item['values']
     def clearRecords(self):        
         self.tree.delete(self.tree.get_children(''))    
@@ -93,11 +92,6 @@ class DataForm(Tk.Toplevel):
         self.prevButton.config(command=action)
     def setNextPageAction(self,action):
         self.nextButton.config(command=action)      
-    #    
-    def show(self):        
-        self.root.mainloop()
-    def hide(self):
-        self.master.destroy()
     #
     def setPageStatus(self,status):
         self.pageLabel.config(text=status)
