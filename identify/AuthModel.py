@@ -1,6 +1,5 @@
 import tkMessageBox as tmb
 
-from AuthForm import AuthForm
 from User import User
 
 
@@ -29,7 +28,8 @@ class AuthModel(object):
                     result = user
         if password_found == False:
             if user_found == True:
-                tmb.showerror("Auth", "Wrong password")
+                # self.sendMessage("Wrong Password")
+                tmb.showerror("Auth", "Model.Wrong password")
             else:
                 tmb.showerror("Auth", "User not found")
         return result
@@ -52,3 +52,6 @@ class AuthModel(object):
             return True
         else:
             return False
+
+    def sendMessage(self, message):
+        pass

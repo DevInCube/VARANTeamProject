@@ -10,8 +10,15 @@ class AuthController(object):
         self.view = AuthForm()
         self.view.onLoginButtonClick(self.tryAuth)
         self.model = AuthModel()
+        self.model.sendMessage(self.messageFromModel)
         # self.data_controller = DataController()
+        # TODO : controller observs model.message
+        # if model.message is not None -> send to view (like an example)
         self.view.run()
+
+    def messageFromModel(self, message):
+        if message == "Wrong Password":
+            self.view.msgWrongPassword()
 
     def tryAuth(self):
         login = self.view.getLogin()

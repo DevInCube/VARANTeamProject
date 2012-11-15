@@ -47,3 +47,6 @@ class AuthForm(Tk.Toplevel):
         r = Tk.StringVar()
         r.set(value)
         self.loginEntry.config(textvariable=r)
+
+    def msgWrongPassword(self):
+        tmb.showerror("Auth", "View.Wrong password")
