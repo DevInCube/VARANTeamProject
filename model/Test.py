@@ -2,50 +2,82 @@ import unittest
 import DataEntity as DEM
 
 class ModelTest(unittest.TestCase):
-    Data = []
     DE = DEM.DataEntity
+    
     def setUp(self):
         self.DE = DEM.DataEntity()
         DEM.DataEntity.loadData(self.DE,'test.csv')
         
     def testLoadDataHeader(self):
-        Header = ['ID', 'CAD CDW ID', 'CAD Event Number', 'General Offense Number', 'Event Clearance Code', 'Event Clearance Description', 'Event Clearance SubGroup', 'Event Clearance Group', 'Event Clearance Date', 'Hundred Block Location', 'District/Sector', 'Zone/Beat', 'Census Tract', 'Longitude', 'Latitude', 'Incident Location']
+        Header = ['ID', 'CAD CDW ID', 'CAD Event Number', \
+                  'General Offense Number', 'Event Clearance Code', \
+                  'Event Clearance Description', 'Event Clearance SubGroup', \
+                  'Event Clearance Group', 'Event Clearance Date', \
+                  'Hundred Block Location', 'District/Sector', 'Zone/Beat', \
+                  'Census Tract', 'Longitude', 'Latitude', 'Incident Location']
         unittest.TestCase.assertEqual(self, self.DE.Header, Header)
         
     def testChangeRecord(self):
-        record = [1, '961352', '12777390432', '2014590432', '205', 'DISTURBANCE1, OTHER1', 'DISTURBANCES1', 'DISTURBANCES1', '12/14/2012 09:47 AM', '7 AV / PIKE ST', 'L', 'P1', '8123.2009', '-121.3366873', '49.610212766', '(47.910212766, -122.3366873)']
+        record = [1, '961352', '12777390432', '2014590432', '205', \
+                  'DISTURBANCE1, OTHER1', 'DISTURBANCES1', 'DISTURBANCES1', \
+                  '12/14/2012 09:47 AM', '7 AV / PIKE ST', 'L', 'P1', \
+                  '8123.2009', '-121.3366873', '49.610212766', \
+                  '(47.910212766, -122.3366873)']
         self.DE.changeRecord(record)
         unittest.TestCase.assertEqual(self, self.DE.Data[0], record)
         
     def testChangeRecordNoID(self):
-        record = [27, '961352', '12777390432', '2014590432', '205', 'DISTURBANCE1, OTHER1', 'DISTURBANCES1', 'DISTURBANCES1', '12/14/2012 09:47 AM', '7 AV / PIKE ST', 'L', 'P1', '8123.2009', '-121.3366873', '49.610212766', '(47.910212766, -122.3366873)']
-        unittest.TestCase.assertEqual(self, self.DE.changeRecord(record), "There is no such ID.")
+        record = [27, '961352', '12777390432', '2014590432', '205', \
+                  'DISTURBANCE1, OTHER1', 'DISTURBANCES1', 'DISTURBANCES1', \
+                  '12/14/2012 09:47 AM', '7 AV / PIKE ST', 'L', 'P1', \
+                  '8123.2009', '-121.3366873', '49.610212766', \
+                  '(47.910212766, -122.3366873)']
+        unittest.TestCase.assertEqual(self, self.DE.changeRecord(record), \
+                                      "There is no such ID.")
         
     def testDeleteRecord(self):
-        initLen=len(self.DE.Data)
+        initLen = len(self.DE.Data)
         self.DE.deleteRecord(1)
         unittest.TestCase.assertEqual(self, self.DE.Data[0][0], 2)
         unittest.TestCase.assertEqual(self, len(self.DE.Data), initLen-1)
         
     def testDeleteRecordNoID(self):
-        unittest.TestCase.assertEqual(self, self.DE.deleteRecord(27), "There is no such ID.")
+        unittest.TestCase.assertEqual(self, self.DE.deleteRecord(27), \
+                                      "There is no such ID.")
         
     def testDeleteRecordInvalidID(self):
-        unittest.TestCase.assertEqual(self, self.DE.deleteRecord('invalid id'), "Invalid ID.")
+        unittest.TestCase.assertEqual(self, self.DE.deleteRecord('invalid id'),\
+                                       "Invalid ID.")
         
     def testNewRecord(self):
-        initLen=len(self.DE.Data) 
+        initLen = len(self.DE.Data) 
         self.DE.newRecord()
-        Len=len(self.DE.Data) 
+        Len = len(self.DE.Data) 
         record = [16,'','','','','','','','','','','','','','','']
-        unittest.TestCase.assertEqual(self, self.DE.Data[len(self.DE.Data)-1], record)   
-        unittest.TestCase.assertEqual(self, Len, initLen+1)
+        unittest.TestCase.assertEqual(self, self.DE.Data[len(self.DE.Data) - 1], \
+                                      record)   
+        unittest.TestCase.assertEqual(self, Len, initLen + 1)
         
     def testSearchRecordsFoundID(self):
         query = [10,'','','','470','','PARKING VIOLATIONS','','','','','','','','','']
-        result = [[9, '961349', '12000390459', '2012390459', '470', 'PARKING VIOLATION (EXCEPT ABANDONED VEHICLES)', 'PARKING VIOLATIONS', 'TRAFFIC RELATED CALLS', '11/14/2012 09:31 AM', '1XX BLOCK OF 12TH AVE', 'E', 'E3', '8600.3002', '-122.316781664', '47.603100033', '(47.603100033, -122.316781664)'], \
-                       [11, '961339', '12000390428', '2012390428', '470', 'PARKING VIOLATION (EXCEPT ABANDONED VEHICLES)', 'PARKING VIOLATIONS', 'TRAFFIC RELATED CALLS', '11/14/2012 09:19 AM', '50XX BLOCK OF 40TH AVE NE', 'L', 'L3', '4200.4011', '-122.285198326', '47.734630685', '(47.734630685, -122.285198326)'], \
-                       [12, '961339', '12000390428', '2012390428', '470', 'PARKING VIOLATION (EXCEPT ABANDONED VEHICLES)', 'PARKING VIOLATIONS', 'TRAFFIC RELATED CALLS', '11/14/2012 09:19 AM', '50XX BLOCK OF 40TH AVE NE', 'L', 'L3', '4200.4011', '-122.285198326', '47.734630685', '(47.734630685, -122.285198326)']]
+        result = [[9, '961349', '12000390459', '2012390459', '470', \
+                   'PARKING VIOLATION (EXCEPT ABANDONED VEHICLES)', \
+                   'PARKING VIOLATIONS', 'TRAFFIC RELATED CALLS', \
+                   '11/14/2012 09:31 AM', '1XX BLOCK OF 12TH AVE', 'E', \
+                   'E3', '8600.3002', '-122.316781664', '47.603100033', \
+                   '(47.603100033, -122.316781664)'], \
+                       [11, '961339', '12000390428', '2012390428', '470', \
+                        'PARKING VIOLATION (EXCEPT ABANDONED VEHICLES)', \
+                        'PARKING VIOLATIONS', 'TRAFFIC RELATED CALLS', \
+                        '11/14/2012 09:19 AM', '50XX BLOCK OF 40TH AVE NE', \
+                        'L', 'L3', '4200.4011', '-122.285198326', '47.734630685', \
+                        '(47.734630685, -122.285198326)'], \
+                       [12, '961339', '12000390428', '2012390428', '470', \
+                        'PARKING VIOLATION (EXCEPT ABANDONED VEHICLES)', \
+                        'PARKING VIOLATIONS', 'TRAFFIC RELATED CALLS', \'
+                        '11/14/2012 09:19 AM', '50XX BLOCK OF 40TH AVE NE', \
+                        'L', 'L3', '4200.4011', '-122.285198326', '47.734630685', \
+                        '(47.734630685, -122.285198326)']]
         unittest.TestCase.assertEqual(self, self.DE.searchRecords(query), result)
         
     def testSearchRecordsNotFound(self):
@@ -64,9 +96,9 @@ class ModelTest(unittest.TestCase):
         del(self.DE)
         
 class DataTest(unittest.TestCase):
-    DE = DEM.DataEntity
     Data = []
     DE = DEM.DataEntity
+    
     def setUp(self):
         self.DE = DEM.DataEntity()
         self.Data = [[1, '961352', '12000390432', '2012390432', '245', 'DISTURBANCE, OTHER', 'DISTURBANCES', 'DISTURBANCES', '11/14/2012 09:49 AM', '4 AV / PIKE ST', 'K', 'K1', '8100.2009', '-122.3366873', '47.610212766', '(47.610212766, -122.3366873)'],\
@@ -94,7 +126,8 @@ class DataTest(unittest.TestCase):
         
     def testSearchRecordsNoQuery(self):
         query = ['','','','','','','','','','','','','','','','']
-        unittest.TestCase.assertEqual(self, self.DE.searchRecords(query), self.Data) 
+        unittest.TestCase.assertEqual(self, self.DE.searchRecords(query), \
+                                      self.Data) 
         
     def tearDown(self):
         del(self.DE)
@@ -102,6 +135,7 @@ class DataTest(unittest.TestCase):
 
 class FileTest(unittest.TestCase):
     DE = DEM.DataEntity
+    
     def setUp(self):
         self.DE = DEM.DataEntity()
         

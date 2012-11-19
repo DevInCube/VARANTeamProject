@@ -23,17 +23,17 @@ class DataEntity:
             return "Invalid file format."
         finally:
             File.close()
-        if ((len(self.Data)==1) and ((len(self.Data[0])) == 0)):
+        if ((len(self.Data) == 1) and ((len(self.Data[0])) == 0)):
             return "The file is empty."
         else:
             self.createHeader()
 
     def readData(self, reader):
-        i=0
+        i = 0
         for row in reader:
-                if len(row)==15:
+                if len(row) == 15:
                     row.insert(0, i)
-                    i+=1
+                    i += 1
                 self.Data.append(row)
     
     def createHeader(self):
@@ -58,7 +58,8 @@ class DataEntity:
         searchResult = []
         r = range(1, len(record)-1)
         found = None
-        empty = (record == ['','','','','','','','','','','','','','','',''])
+        empty = (record == \
+                 ['','','','','','','','','','','','','','','',''])
         if empty:
             return self.Data
         for rec in self.Data:
@@ -75,12 +76,12 @@ class DataEntity:
             return searchResult
 
     def newRecord(self):
-        rid = (int)(self.Data[len(self.Data)-1][0])+1
+        rid = (int)(self.Data[len(self.Data) - 1][0]) + 1
         self.Data.append([rid])
         i = 1
-        while i<(len(self.Data[0])):
-            i+=1
-            self.Data[len(self.Data)-1].append('')
+        while i < (len(self.Data[0])):
+            i += 1
+            self.Data[len(self.Data) - 1].append('')
         return rid
 
     def changeRecord(self, record):
@@ -106,5 +107,3 @@ class DataEntity:
                 found = 1
         if not found:
             return "There is no such ID."
-
-#if __name__=='__main__':
