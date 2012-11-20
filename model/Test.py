@@ -18,13 +18,23 @@ class ModelTest(unittest.TestCase):
         unittest.TestCase.assertEqual(self, self.DE.Header, Header)
         
     def testChangeRecord(self):
-        record = [1, '961352', '12777390432', '2014590432', '205', \
+        record1 = [1, '961352', '12777390432', '2014590432', '205', \
                   'DISTURBANCE1, OTHER1', 'DISTURBANCES1', 'DISTURBANCES1', \
                   '12/14/2012 09:47 AM', '7 AV / PIKE ST', 'L', 'P1', \
                   '8123.2009', '-121.3366873', '49.610212766', \
                   '(47.910212766, -122.3366873)']
-        self.DE.changeRecord(record)
-        unittest.TestCase.assertEqual(self, self.DE.Data[0], record)
+        record2 = [1, '898623', '12777393272', '', '', 'DISTURBANCE5, OTHER1', \
+                   '', '', '12/17/2012 09:47 AM', '', 'K', '', \
+                  '', '-121.33232873', '49.610212777', '']
+        result2 = [1, '898623', '12777393272', '2014590432', '205', \
+                  'DISTURBANCE5, OTHER1', 'DISTURBANCES1', 'DISTURBANCES1', \
+                  '12/17/2012 09:47 AM', '7 AV / PIKE ST', 'K', 'P1', \
+                  '8123.2009', '-121.33232873', '49.610212777', \
+                  '(47.910212766, -122.3366873)']
+        self.DE.changeRecord(record1)
+        unittest.TestCase.assertEqual(self, self.DE.Data[0], record1)
+        self.DE.changeRecord(record2)
+        unittest.TestCase.assertEqual(self, self.DE.Data[0], result2)
         
     def testChangeRecordNoID(self):
         record = [27, '961352', '12777390432', '2014590432', '205', \
@@ -74,7 +84,7 @@ class ModelTest(unittest.TestCase):
                         '(47.734630685, -122.285198326)'], \
                        [12, '961339', '12000390428', '2012390428', '470', \
                         'PARKING VIOLATION (EXCEPT ABANDONED VEHICLES)', \
-                        'PARKING VIOLATIONS', 'TRAFFIC RELATED CALLS', \'
+                        'PARKING VIOLATIONS', 'TRAFFIC RELATED CALLS', \
                         '11/14/2012 09:19 AM', '50XX BLOCK OF 40TH AVE NE', \
                         'L', 'L3', '4200.4011', '-122.285198326', '47.734630685', \
                         '(47.734630685, -122.285198326)']]

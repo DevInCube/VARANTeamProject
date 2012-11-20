@@ -91,7 +91,8 @@ class DataEntity:
                 found = 1
                 r = range(1, len(record))
                 for i in r:
-                    rec[i] = record[i]
+                    if record[i] != '':
+                        rec[i] = record[i]
         if not found:
             return "There is no such ID."
         
