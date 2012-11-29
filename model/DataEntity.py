@@ -1,13 +1,14 @@
 import csv
 
+
 class DataEntity:
     Data = []
     path = ''
     Header = 0
-    
+
     def __init__(self):
         self.Data = []
-    
+
     def loadData(self, path):
         if path == '':
             return "No file path."
@@ -15,7 +16,7 @@ class DataEntity:
         try:
             File = open(self.path, 'r')
         except IOError:
-            return "No such file or directory: "+path
+            return "No such file or directory: " + path
         rReader = csv.reader(File)
         try:
             self.readData(rReader)
@@ -23,21 +24,22 @@ class DataEntity:
             return "Invalid file format."
         finally:
             File.close()
-        if ((len(self.Data) == 1) and ((len(self.Data[0])) == 0)):
+        if (len(self.Data) <= 1):
             return "The file is empty."
         else:
             self.createHeader()
+        return self.Data
 
     def readData(self, reader):
         i = 0
         for row in reader:
                 if len(row) == 15:
-                    row.insert(0, i)
+                    row.insert(0, str(i))
                     i += 1
                 self.Data.append(row)
-    
+
     def createHeader(self):
-        if self.Data[0][0] == 0:
+        if self.Data[0][0] == '0':
             self.Header = self.Data[0]
             self.Header[0] = 'ID'
             del(self.Data[0])
@@ -47,26 +49,35 @@ class DataEntity:
             return "No file path."
         File = open(fpath, 'w')
         rWriter = csv.writer(File)
+        # rWriter.writerow(self.Header)
         for record in self.Data:
             rWriter.writerow(record)
         File.close()
 
-    def getRecords(self):                  
+    def getRecords(self):
         return self.Data
 
-    def searchRecords(self, record):               
+    def searchRecords(self, record):
         searchResult = []
-        r = range(1, len(record)-1)
+        r = range(len(record))
         found = None
         empty = (record == \
-                 ['','','','','','','','','','','','','','','',''])
+                 ['', '', '', '', '', '', '', '', '', \
+                  '', '', '', '', '', '', ''])
         if empty:
             return self.Data
+        mask = []
+        for i in r:
+            if record[i] != '':
+                mask.append(i)
+        # print str(record)
         for rec in self.Data:
             equal = None
-            for i in r:
-                if rec[i] == record[i]:
+            for i in mask:
+                if (rec[i] == record[i]) and (rec[i] != ''):
                     equal = 1
+                    break
+            # print str(rec)
             if equal:
                 searchResult.append(rec)
                 found = 1
@@ -76,7 +87,7 @@ class DataEntity:
             return searchResult
 
     def newRecord(self):
-        rid = (int)(self.Data[len(self.Data) - 1][0]) + 1
+        rid = str((int)(self.Data[len(self.Data) - 1][0]) + 1)
         self.Data.append([rid])
         i = 1
         while i < (len(self.Data[0])):
@@ -87,6 +98,7 @@ class DataEntity:
     def changeRecord(self, record):
         found = None
         for rec in self.Data:
+            print str(rec[0]) + "|" + str(record[0])
             if rec[0] == record[0]:
                 found = 1
                 r = range(1, len(record))
@@ -95,12 +107,13 @@ class DataEntity:
                         rec[i] = record[i]
         if not found:
             return "There is no such ID."
-        
-    def deleteRecord(self,rid):
+        return found
+
+    def deleteRecord(self, rid):
         try:
-            iid = (int)(rid)
+            iid = str(rid)
         except ValueError:
-            return "Invalid ID."
+            return "There is no such ID."
         found = None
         for record in self.Data:
             if record[0] == iid:
