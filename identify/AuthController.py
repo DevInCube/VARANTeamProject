@@ -5,6 +5,15 @@
 '''
 from AuthModel import AuthModel
 from AuthForm import AuthForm
+from controller import DataController as dc
+from Tkinter import *
+
+
+def init():
+    app = Tk()
+    app.withdraw()
+    AuthController()
+    app.mainloop()
 
 
 class AuthController(object):
@@ -15,7 +24,7 @@ class AuthController(object):
         self.view.onLoginButtonClick(self.tryAuth)
         self.model = AuthModel()
         self.model.message.addCallback(self.messageFromModel)
-        self.view.run()
+        self.view.show()
 
     def messageFromModel(self, message):
         result = None
@@ -34,12 +43,12 @@ class AuthController(object):
         if not (user is None):
             is_admin = user.is_admin
             self.state = "Success"
-            self.model.message.set("Now we call" +
-                "DataController with is_admin = " + str(is_admin))
-            # self.datacontroller.openConnection(is_admin)
-        self.view.setPassword("")
-        self.state = None
+            self.d = dc.DataController(self.logout)
+            self.d.openConnection(is_admin)
+            self.view.hide()
+
+    def logout(self):
+        init()
 
 if __name__ == "__main__":
-    app = AuthController()
-
+    init()

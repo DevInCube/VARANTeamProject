@@ -1,17 +1,15 @@
 # coding: utf-8
 import Tkinter as Tk
 import tkMessageBox as tmb
+from view import TkForm
 
 
-class AuthForm(Tk.Toplevel):
+class AuthForm(TkForm.TkForm):
 
     def __init__(self):
-        self.root = Tk.Tk()
-        self.root.withdraw()
-        self.root.title('Lab1 VARAN')
-        Tk.Toplevel.__init__(self, self.root)
+        TkForm.TkForm.__init__(self)
+        self.title('Lab1 VARAN')
         self.geometry("160x100+600+300")
-        self.protocol('WM_DELETE_WINDOW', self.master.destroy)
         self.loginLabel = Tk.Label(self, text='Enter login:')
         self.loginLabel.pack(side='top')
         login = Tk.StringVar()
@@ -25,9 +23,6 @@ class AuthForm(Tk.Toplevel):
         self.passwordEntry.pack(side='top')
         self.loginButton = Tk.Button(self, text='Login', width=8)
         self.loginButton.pack(side='bottom')
-
-    def run(self):
-        self.root.mainloop()
 
     def onLoginButtonClick(self, sender):
         self.loginButton.configure(command=sender)

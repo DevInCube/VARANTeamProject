@@ -9,6 +9,7 @@ class AuthModel(object):
         self.users = []
         self.users.append(User('admin', '1234', True))
         self.users.append(User('reader', 'qwerty', False))
+        self.users.append(User('q', 'q', True))
 
     def login(self, login, password):
         if self.validation(login, password):
