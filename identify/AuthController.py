@@ -9,22 +9,22 @@ from controller import DataController as dc
 from Tkinter import *
 
 
-def init():
-    app = Tk()
-    app.withdraw()
-    AuthController()
-    app.mainloop()
-
-
 class AuthController(object):
 
-    def __init__(self):
+    def __init__(self, app):
+        self.app = app
         self.state = None
         self.view = AuthForm()
+        self.view.setOnClose(self.onClose)
         self.view.onLoginButtonClick(self.tryAuth)
         self.model = AuthModel()
         self.model.message.addCallback(self.messageFromModel)
         self.view.show()
+
+    def onClose(self):
+        self.app.quit()
+        print 'quit'
+        self.view.destroy()
 
     def messageFromModel(self, message):
         result = None
@@ -46,9 +46,14 @@ class AuthController(object):
             self.d = dc.DataController(self.logout)
             self.d.openConnection(is_admin)
             self.view.hide()
-
+        # self.view.setPassword("")
+        # self.state = None
     def logout(self):
-        init()
+        AuthController(self.app)
 
 if __name__ == "__main__":
-    init()
+    app = Tk()
+    app.withdraw()
+    AuthController(app)
+    app.mainloop()
+

@@ -24,6 +24,8 @@ class AuthForm(TkForm.TkForm):
         self.loginButton = Tk.Button(self, text='Login', width=8)
         self.loginButton.pack(side='bottom')
 
+
+
     def onLoginButtonClick(self, sender):
         self.loginButton.configure(command=sender)
 
