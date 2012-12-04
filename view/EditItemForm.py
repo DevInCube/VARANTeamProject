@@ -4,7 +4,9 @@ import TkForm as tkf
 import Tkinter as Tk
 from Tkinter import StringVar
 
-
+"""
+A form class for manipulations with data record
+"""
 class EditItemForm(tkf.TkForm):
     def __init__(self, headers, item=None):
         tkf.TkForm.__init__(self)
@@ -26,22 +28,32 @@ class EditItemForm(tkf.TkForm):
             self.editInputs[i].pack(side='top', fill='both', expand=True)
         self.bottomFrame = Tk.Frame(self)
         self.bottomFrame.pack(side='bottom', fill='both', expand=True)
-
+    """
+    Add new labeled button with binded action on the form 
+    """
     def addButton(self, name, action):
         btn = Tk.Button(self.bottomFrame, text=name, width=10)
         btn.config(command=action)
         btn.pack(side='left')
-
+    """
+    Make the specified(by number) label of the form enabled
+    """
     def enableInput(self, ind):
         self.editInputs[ind].config(state='normal')
-
+    """
+    Make the specified(by number) label of the form disabled
+    """
     def disableInput(self, ind):
         self.editInputs[ind].config(state='disabled')
-
+    """
+    Clear the text of all the labels of the form
+    """
     def clearInputs(self):
         for i in range(len(self.editInputs)):
             self.editInputs[i].config(textvariable=StringVar())
-
+    """
+    Get the list of text of all the labels of the form
+    """
     def getRecord(self):
         sr = {}
         for i in range(len(self.editInputs)):

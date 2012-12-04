@@ -1,3 +1,4 @@
+# coding: utf-8
 '''
 Created on Nov 15, 2012
 
@@ -14,15 +15,16 @@ class TkForm(Tk.Toplevel):
         '''
         Constructor
         '''
-        self.root = Tk.Tk()
-        self.root.withdraw()
-        Tk.Toplevel.__init__(self, self.root)
-        self.protocol('WM_DELETE_WINDOW', self.hide)
+        self.root = Tk.Tk()                         
 
     def show(self):
-        '''Opens this window'''
+        '''
+        Opens this window
+        '''
         self.root.mainloop()
 
     def hide(self):
-        '''Closes this window'''
+        '''
+        Closes this window
+        '''
         self.master.destroy()
