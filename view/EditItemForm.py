@@ -7,7 +7,10 @@ from Tkinter import StringVar
 """
 A form class for manipulations with data record
 """
+
+
 class EditItemForm(tkf.TkForm):
+
     def __init__(self, headers, item=None):
         tkf.TkForm.__init__(self)
         searchFrame = Tk.Frame(self)
@@ -28,8 +31,9 @@ class EditItemForm(tkf.TkForm):
             self.editInputs[i].pack(side='top', fill='both', expand=True)
         self.bottomFrame = Tk.Frame(self)
         self.bottomFrame.pack(side='bottom', fill='both', expand=True)
+
     """
-    Add new labeled button with binded action on the form 
+    Add new labeled button with binded action on the form
     """
     def addButton(self, name, action):
         btn = Tk.Button(self.bottomFrame, text=name, width=10)

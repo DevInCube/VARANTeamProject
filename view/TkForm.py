@@ -15,7 +15,7 @@ class TkForm(Tk.Toplevel):
         '''
         Constructor
         '''
-        self.root = Tk.Tk()                         
+        self.root = Tk.Tk()
 
     def show(self):
         '''
