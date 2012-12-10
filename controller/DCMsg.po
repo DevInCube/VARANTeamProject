@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "changes saved"
+msgstr "changes saved"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zhuk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012"
+msgstr "VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zhuk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012"
+
+msgid "About"
+msgstr "About"
+
