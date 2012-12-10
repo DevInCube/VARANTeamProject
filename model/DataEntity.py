@@ -1,4 +1,5 @@
 import csv
+import gettext
 
 
 class DataEntity:
@@ -8,24 +9,26 @@ class DataEntity:
 
     def __init__(self):
         self.Data = []
+        gettext.install('DEMsg', './locale', unicode=True)
 
     def loadData(self, path):
         if path == '':
-            return "No file path."
+            print _("No file path.")
+            return _("No file path.")
         self.path = path
         try:
             File = open(self.path, 'r')
         except IOError:
-            return "No such file or directory: " + path
+            return _("No such file or directory: ") + path
         rReader = csv.reader(File)
         try:
             self.readData(rReader)
         except csv.Error:
-            return "Invalid file format."
+            return _("Invalid file format.")
         finally:
             File.close()
         if (len(self.Data) <= 1):
-            return "The file is empty."
+            return _("The file is empty.")
         else:
             self.createHeader()
         return self.Data
@@ -46,7 +49,7 @@ class DataEntity:
 
     def saveData(self, fpath=path):
         if fpath == '':
-            return "No file path."
+            return _("No file path.")
         File = open(fpath, 'w')
         rWriter = csv.writer(File)
         # rWriter.writerow(self.Header)
@@ -82,7 +85,7 @@ class DataEntity:
                 searchResult.append(rec)
                 found = 1
         if not found:
-            return "There are no such records."
+            return _("There are no such records.")
         else:
             return searchResult
 
@@ -98,7 +101,7 @@ class DataEntity:
     def changeRecord(self, record):
         found = None
         for rec in self.Data:
-            print str(rec[0]) + "|" + str(record[0])
+#            print str(rec[0]) + "|" + str(record[0])
             if rec[0] == record[0]:
                 found = 1
                 r = range(1, len(record))
@@ -106,18 +109,18 @@ class DataEntity:
                     if record[i] != '':
                         rec[i] = record[i]
         if not found:
-            return "There is no such ID."
+            return _("There is no such ID.")
         return found
 
     def deleteRecord(self, rid):
         try:
             iid = str(rid)
         except ValueError:
-            return "There is no such ID."
+            return _("There is no such ID.")
         found = None
         for record in self.Data:
             if record[0] == iid:
                 self.Data.remove(record)
                 found = 1
         if not found:
-            return "There is no such ID."
+            return _("There is no such ID.")

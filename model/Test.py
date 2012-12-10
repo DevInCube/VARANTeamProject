@@ -1,5 +1,6 @@
 import unittest
 import DataEntity as DEM
+import gettext
 
 
 class ModelTest(unittest.TestCase):
@@ -8,6 +9,7 @@ class ModelTest(unittest.TestCase):
     def setUp(self):
         self.DE = DEM.DataEntity()
         DEM.DataEntity.loadData(self.DE, 'test.csv')
+        gettext.install('DEMsg', './locale', unicode=True)
 
     def testLoadDataHeader(self):
         Header = ['ID', 'CAD CDW ID', 'CAD Event Number', \
@@ -45,7 +47,7 @@ class ModelTest(unittest.TestCase):
                   '8123.2009', '-121.3366873', '49.610212766', \
                   '(47.910212766, -122.3366873)']
         unittest.TestCase.assertEqual(self, self.DE.changeRecord(record), \
-                                      "There is no such ID.")
+                                      _("There is no such ID."))
 
     def testDeleteRecord(self):
         initLen = len(self.DE.Data)
@@ -55,10 +57,10 @@ class ModelTest(unittest.TestCase):
 
     def testDeleteRecordNoID(self):
         unittest.TestCase.assertEqual(self, self.DE.deleteRecord(27), \
-                                      "There is no such ID.")
+                                      _("There is no such ID."))
         unittest.TestCase.assertEqual(self, \
                                       self.DE.deleteRecord('invalid id'),\
-                                       "There is no such ID.")
+                                       _("There is no such ID."))
 
     def testNewRecord(self):
         initLen = len(self.DE.Data)
@@ -96,10 +98,10 @@ class ModelTest(unittest.TestCase):
                                       result)
 
     def testSearchRecordsNotFound(self):
-        query = ['', '', '', '', '999', '', 'asefsadf', '', '', '', \
+        query = ['', '', '', '', '999', '', 'norecords', '', '', '', \
                  '', '', '', '', '', '']
         unittest.TestCase.assertEqual(self, self.DE.searchRecords(query), \
-                                      "There are no such records.")
+                                      _("There are no such records."))
 
     def testSaveData(self):
         Data = self.DE.Data
@@ -231,21 +233,21 @@ class FileTest(unittest.TestCase):
     def testLoadDataInvalidFormat(self):
         result = self.DE.loadData('format.doc')
         unittest.TestCase.assertEqual(self, result, \
-                               "Invalid file format.")
+                               _("Invalid file format."))
 
     def testLoadDataEmptyFile(self):
         result = self.DE.loadData('empty.csv')
         unittest.TestCase.assertEqual(self, result, \
-                                      "The file is empty.")
+                                      _("The file is empty."))
 
     def testLoadDataNoFile(self):
         unittest.TestCase.assertEqual(self, self.DE.loadData('12356.txt'), \
-                                      "No such file or directory: 12356.txt")
+                                      _("No such file or directory: ")+"12356.txt")
 
     def testLoadDataNoFilePath(self):
         unittest.TestCase.assertEqual(self, self.DE.loadData(''), \
-                                      "No file path.")
+                                      _("No file path."))
 
     def testSaveDataNoFilePath(self):
         unittest.TestCase.assertEqual(self, self.DE.saveData(''), \
-                                      "No file path.")
+                                      _("No file path."))

@@ -2,6 +2,7 @@ from view import DataForm as df
 from view import EditItemForm as eif
 #import blabla as idf
 import tkMessageBox as tmb
+import gettext
 
 
 class DataController:
@@ -22,6 +23,7 @@ class DataController:
         self.totalPages = 5
         self.editView = None
         self.searchResult = ()
+        gettext.install('DCMsg', './locale', unicode=True)
 
     def openConnection(self, readonly):
         if self.view is None:
@@ -56,8 +58,8 @@ class DataController:
 
     def newRecord(self):
         self.editView = eif.EditItemForm(self.headers, self.record)
-        self.editView.addButton("Save", self.saveChanges)
-        self.editView.addButton("Cancel", self.cancelChanges)
+        self.editView.addButton(_("Save"), self.saveChanges)
+        self.editView.addButton(_("Cancel"), self.cancelChanges)
         self.editView.show()
 
     def editRecord(self):
@@ -67,12 +69,12 @@ class DataController:
         self.view.enableMenuItem(1, 2)
         self.editView = eif.EditItemForm(self.headers, record)
         self.editView.show()
-        self.editView.addButton("Save", self.saveChanges)
-        self.editView.addButton("Cancel", self.cancelChanges)
+        self.editView.addButton(_("Save"), self.saveChanges)
+        self.editView.addButton(_("Cancel"), self.cancelChanges)
 
     def saveChanges(self):
         #dataset writing function here
-        print "changes saved"
+        print _("changes saved")
         #self.view.insertRecord(0, self.record)
         self.editView.hide()
         if self.page < self.totalPages:
@@ -87,8 +89,8 @@ class DataController:
         if record is None:
             return
         self.view.enableMenuItem(1, 3)
-        self.editView.addButton("Delete", self.saveChanges)
-        self.editView.addButton("Cancel", self.cancelChanges)
+        self.editView.addButton(_("Delete"), self.saveChanges)
+        self.editView.addButton(_("Cancel"), self.cancelChanges)
         #delete record here
 
     def updateData(self):
@@ -114,6 +116,6 @@ class DataController:
         self.view.clearRecords()
 
     def showAbout(self):
-        text = "VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zh\
-uk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012"
-        tmb.showinfo('About', text)
+        text = _("VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zh\
+uk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012")
+        tmb.showinfo(_("About"), text)
