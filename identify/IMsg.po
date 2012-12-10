@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Lab1 VARAN"
+msgstr "Lab1 VARAN"
+
+msgid "Enter login:"
+msgstr "Enter login:"
+
+msgid "Enter pass:"
+msgstr "Enter pass:"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Wrong Password"
+msgstr "Wrong Password"
+
+msgid "Login and password are empty"
+msgstr "Login and password are empty"
+
+msgid "User not found"
+msgstr "User not found"
+
+msgid "Password is empty"
+msgstr "Password is empty"
+
+msgid "Login is empty"
+msgstr "Login is empty"
+
+msgid "Function returns not None on None data"
+msgstr "Function returns not None on None data"
+
+msgid "Function returns not None on Non Valid data"
+msgstr "Function returns not None on Non Valid data"
+
+msgid "Function returns not True on Valid data (state=Error)"
+msgstr "Function returns not True on Valid data (state=Error)"
+
+msgid "Function returns not True on Valid data (state=Success)"
+msgstr "Function returns not True on Valid data (state=Success)"
+

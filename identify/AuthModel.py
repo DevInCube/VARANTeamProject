@@ -1,5 +1,6 @@
 from User import User
 from Observable import Observable
+import gettext
 
 
 class AuthModel(object):
@@ -10,6 +11,7 @@ class AuthModel(object):
         self.users.append(User('admin', '1234', True))
         self.users.append(User('reader', 'qwerty', False))
         self.users.append(User('q', 'q', True))
+        gettext.install('IMsg', './locale', unicode=True)
 
     def login(self, login, password):
         if self.validation(login, password):
@@ -29,23 +31,23 @@ class AuthModel(object):
                     result = user
         if password_found == False:
             if user_found == True:
-                self.message.set("Wrong Password")
+                self.message.set(_("Wrong Password"))
                 self.state = "Error"
             else:
-                self.message.set("User not found")
+                self.message.set(_("User not found"))
         return result
 
     def validation(self, login, password):
         pv = self.validate(password)
         lv = self.validate(login)
         if not (pv or lv == True):
-            self.message.set("Login and password are empty")
+            self.message.set(_("Login and password are empty"))
         else:
             if pv == False:
-                self.message.set("Password is empty")
+                self.message.set(_("Password is empty"))
             else:
                 if lv == False:
-                    self.message.set("Login is empty")
+                    self.message.set(_("Login is empty"))
         return pv and lv
 
     def validate(self, elem):
