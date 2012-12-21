@@ -1,6 +1,6 @@
-import DataController as dc
+# import DataController as dc
 
-dC = dc.DataController()
-dC.openConnection(False)
+# dC = dc.DataController()
+# dC.openConnection(False)
 
-#dC.showAbout()
+# dC.showAbout()
