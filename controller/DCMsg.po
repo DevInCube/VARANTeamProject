@@ -1,9 +1,35 @@
+# Natalia, 2012.
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Natalia\n"
+"PO-Revision-Date: 2012-12-23 23:04+0200\n"
+"Project-Id-Version: \n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"Language: ru\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "Save"
 msgstr "Save"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "There is no record selected"
+msgstr "There is no record selected"
+
+msgid "Show all"
+msgstr "Show all"
+
+msgid "Find"
+msgstr "Find"
+
+msgid "Search"
+msgstr "Search"
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -14,8 +40,12 @@ msgstr "changes saved"
 msgid "Delete"
 msgstr "Delete"
 
-msgid "VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zhuk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012"
-msgstr "VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zhuk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012"
+msgid ""
+"VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zhuk Andriy\n- "
+"Kakovskyi Viacheslav\nVARAN(c)   2012"
+msgstr ""
+"VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- Zhuk Andriy\n- "
+"Kakovskyi Viacheslav\nVARAN(c)   2012"
 
 msgid "About"
 msgstr "About"
