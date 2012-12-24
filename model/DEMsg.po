@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "No file path."
+msgstr "Не заданий шлях до файлу."
+
+msgid "No such file or directory: "
+msgstr "Файл або папка не існує: "
+
+msgid "Invalid file format."
+msgstr "Неправильний формат файлу."
+
+msgid "The file is empty."
+msgstr "Файл пустий."
+
+msgid "There are no such records."
+msgstr "Запис не знайдено."
+
+msgid "There is no such ID."
+msgstr "Запис з таким номером не знайдено."
+

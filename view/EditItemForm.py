@@ -23,7 +23,7 @@ class EditItemForm(tkf.TkForm):
                 inputText.set(item[i])
             self.editInputs[i] = Tk.Entry(searchFrameRight, textvariable=inputText)
             self.editInputs[i].pack(side='top', fill='both', expand=True)
-            print  self.editInputs[i].get()
+            # print  self.editInputs[i].get()
         self.bottomFrame = Tk.Frame(self)
         self.bottomFrame.pack(side='bottom', fill='both', expand=True)
     def addButton(self, name, action):

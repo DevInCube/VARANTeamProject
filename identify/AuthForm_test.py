@@ -1,5 +1,5 @@
 import unittest
-
+import gettext
 from AuthForm import AuthForm
 
 
@@ -7,30 +7,31 @@ class TestMessage(unittest.TestCase):
 
     def setUp(self):
         self.view = AuthForm()
+        gettext.install('IMsg', './locale', unicode=True)
 
     def testShowMessage_NoneData(self):
         self.assertEqual(self.view.showMessage(None, None), None,
-            "Function returns not None on None data")
+            _("Function returns not None on None data"))
 
     def testShowMessage_EmptyData(self):
         self.assertEqual(self.view.showMessage("", ""), None,
-            "Function returns not None on Empty data")
+            _("Function returns not None on Empty data"))
 
     def testShowMessage_NonValid1(self):
         self.assertEqual(self.view.showMessage("foo", ""), None,
-            "Function returns not None on empty data")
+            _("Function returns not None on empty data"))
 
     def testShowMessage_NonValid2(self):
         self.assertEqual(self.view.showMessage("", "bar"), None,
-            "Function returns not None on Non Valid data")
+            _("Function returns not None on Non Valid data"))
 
     def testShowMessage_Error(self):
         self.assertEqual(self.view.showMessage("", "Error"), True,
-            "Function returns not True on Valid data (state=Error)")
+            _("Function returns not True on Valid data (state=Error)"))
 
     def testShowMessageSuccess(self):
         self.assertEqual(self.view.showMessage("", "Success"), True,
-            "Function returns not True on Valid data (state=Success)")
+            _("Function returns not True on Valid data (state=Success)"))
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testValidate']

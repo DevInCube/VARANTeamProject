@@ -2,6 +2,7 @@ from view import DataForm as df
 from view import EditItemForm as eif
 from model import DataEntity as de
 import tkMessageBox as tmb
+import gettext
 
 
 class DataController:
@@ -27,6 +28,7 @@ class DataController:
         self.data = None
         self.lastSearch = None
         self.onLogout = onlogout
+        gettext.install('DEMsg', './locale', unicode=True)
 
     def openConnection(self, isadmin):
         '''Create new connection and show dataset in tree'''
@@ -42,6 +44,7 @@ class DataController:
             self.view.disable_button('new')
         self.view.set_account_status(status)
         self.data = self.d.loadData("E:\\test.csv")
+
         self.view.bind_button('next', self.nextPage)
         self.view.bind_button('prev', self.prevPage)
         self.view.bind_button('logout', self.logOut)
@@ -65,6 +68,7 @@ class DataController:
         '''Call Authorization Form and close Main Form'''
         self.closeConnection()
         self.d.saveData("E:\\test.csv")
+
         if self.onLogout:
             self.onLogout()
 
@@ -74,23 +78,25 @@ class DataController:
         self.data = self.d.getRecords()
         record = self.data[len(self.data) - 1]
         self.editView = eif.EditItemForm(self.view, self.headers,
-                                         "Edit", record)
+                                         _("Edit"), record)
+
         self.editView.disableInput(0)
-        self.editView.addButton("Save", self.save)
-        self.editView.addButton("Cancel", self.cancel)
+        self.editView.addButton(_("Save"), self.save)
+        self.editView.addButton(_("Cancel"), self.cancel)
         self.editView.show()
 
     def editRecord(self):
         '''Edit existing record in treeview'''
         self.edit_record = self.view.get_selected_record()
         if self.edit_record is None:
-            tmb.showerror("Error", "There is no record selected")
+            tmb.showerror("Error", _("There is no record selected"))
             return
         self.editView = eif.EditItemForm(self.view, self.headers,
-                                         "Edit", self.edit_record)
+                                         _("Edit"), self.edit_record)
+
         self.editView.disableInput(0)
-        self.editView.addButton("Save", self.save)
-        self.editView.addButton("Cancel", self.cancel)
+        self.editView.addButton(_("Save"), self.save)
+        self.editView.addButton(_("Cancel"), self.cancel)
         self.editView.show()
 
     def save_new(self):
@@ -115,7 +121,7 @@ class DataController:
             record = self.view.get_selected_record()
             rid = record[0]
         except:
-            tmb.showerror("Error", "There is no record selected")
+            tmb.showerror("Error", _("There is no record selected"))
             return
         self.d.deleteRecord(rid)
         self.data = self.d.searchRecords(self.lastSearch)
@@ -150,10 +156,11 @@ class DataController:
     def search(self):
         '''Search record by parameters'''
         self.editView = eif.EditItemForm(self.view, self.headers,
-                                         "Search", self.lastSearch)
-        self.editView.addButton("Find", self.find)
-        self.editView.addButton("Cancel", self.cancel)
-        self.editView.addButton("Show All", self.showAllRecords)
+                                         _("Search"), self.lastSearch)
+
+        self.editView.addButton(_("Find"), self.find)
+        self.editView.addButton(_("Cancel"), self.cancel)
+        self.editView.addButton(_("Show All"), self.showAllRecords)
         self.editView.show()
 
     def find(self):
@@ -172,6 +179,6 @@ class DataController:
 
     def showAbout(self):
         '''Show messagebox about the developers team'''
-        text = "VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- \
-Zhuk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012"
-        tmb.showinfo('About', text)
+        text = _("VARAN Team Squad:\n - Azhipa Natalia\n- Hadyniak Ruslan\n- \
+Zhuk Andriy\n- Kakovskyi Viacheslav\nVARAN(c)   2012")
+        tmb.showinfo(_('About'), text)
