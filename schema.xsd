@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="responce" type="responce"/>
+  <xs:complexType name="responce">
+    <xs:sequence>
+      <xs:element name="CAD CDW ID" type="xs:integer"/>
+      <xs:element name="CAD Event Number" type="xs:long"/>
+      <xs:element name="General Offense Number" type="xs:long"/>
+      <xs:element name="Event Clearance Code" type="xs:integer"/>
+      <xs:element name="Event Clearance Description" type="xs:string"/>
+      <xs:element name="Event Clearance SubGroup" type="xs:string"/>
+      <xs:element name="Event Clearance Group" type="xs:string"/>
+      <xs:element name="Event Clearance Date" type="xs:dateTime"/>
+      <xs:element name="Hundred Block Location" type="xs:string"/>
+      <xs:element name="District/Sector">
+      <xs:simpleType>
+	<xs:restriction base ="xs:string">
+	  <xs:maxLength value="4"/>
+	</xs:restriction>
+      </xs:simpleType>
+      </xs:element>
+      <xs:element name="Zone/Beat">
+      <xs:simpleType>
+	<xs:restriction base ="xs:string">
+	  <xs:maxLength value="4"/>
+	</xs:restriction>
+      </xs:simpleType>
+      </xs:element>
+      <xs:element name="Census Tract" type="xs:decimal"/>
+      <xs:element name="Longitude" type="xs:decimal"/>
+      <xs:element name="Latitude" type="xs:decimal"/>
+      <xs:element name="Incident Location" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
